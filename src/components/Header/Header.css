@@ -1,0 +1,25 @@
+
+
+/* otherwise its showing border thin line */
+.position-absolute {
+    border: none 
+    
+  }
+  .fadeIn{
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1.5s ease-in-out forwards;
+  }
+  @keyframes fadeIn{
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+  }
+  
+
