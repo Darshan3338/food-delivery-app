@@ -22,7 +22,7 @@ const AppRoutes = () => {
             <Route path="/menu" element={<Menu/>}/>
             <Route path="/search" element={<Search/>}/>
             <Route path="/cart" element={<Cart/>}/>
-            <Route path="/placeorder" element={<PlaceOrder/>}/>
+            <Route path="/order" element={<PlaceOrder/>}/>
             <Route path="/contact-us" element={<Footer/>}/>
             <Route path="/menu/:id" element={<FoodItem/>}/>
 

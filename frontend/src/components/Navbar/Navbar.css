@@ -83,3 +83,7 @@ body, html {
     width: 30px;    
     height: 30px;   
 }
+.nav-link[href^="#"]:focus,
+.nav-link[href^="#"]:active {
+  border: 2px solid yellow;
+}

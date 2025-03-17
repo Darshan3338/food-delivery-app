@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "../Navbar/Navbar.css";
 import { Badge } from "react-bootstrap";
 import { FaSearch, FaShoppingCart } from "react-icons/fa";
+import { StoreContext } from "../Context/StoreContext";
 
 const NavigationBar = ({setshowLogin}) => {
+  const {getTotalCartCount} = useContext(StoreContext)
   const cartItemCount = 3;
   return (
     <Navbar
@@ -34,20 +36,18 @@ const NavigationBar = ({setshowLogin}) => {
             <Nav.Link as={Link} to="/" className="nav-link">
               Home
             </Nav.Link>
-            <a
+            <Nav.Link as="a"
               href="#explore-menu"
               className="nav-link"
-              style={{ textDecoration: "none" }}
             >
               Menu
-            </a>
-            <a
+            </Nav.Link>
+            <Nav.Link as="a"
               href="#footer"
               className="nav-link"
-              style={{ textDecoration: "none" }}
             >
               Contact Us
-            </a>
+            </Nav.Link>
 
             {/* <Nav.Link as={Link} to="/menu" className="nav-link">
               Menu
@@ -56,8 +56,7 @@ const NavigationBar = ({setshowLogin}) => {
               Contact Us
             </Nav.Link> */}
           </Nav>
-        </Navbar.Collapse>
-      </Container>
+     
       <Nav className="d-flex flex-column flex-lg-row align-items-center gap-3">
         {/* //search-Icon */}
         <Nav.Link as={Link} to={"/search"} className="nav-link">
@@ -75,14 +74,16 @@ const NavigationBar = ({setshowLogin}) => {
           <div className="cart-icon-container position-relative">
             <FaShoppingCart size={22} />
 
-            {cartItemCount > 0 && (
+            {getTotalCartCount() > 0 && (
               <Badge bg="danger" pill className="cart-badge">
-                {cartItemCount}
+                {getTotalCartCount()}
               </Badge>
             )}
           </div>
         </Nav.Link>
       </Nav>
+      </Navbar.Collapse>
+      </Container>
     </Navbar>
   );
 };
