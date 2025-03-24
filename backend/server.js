@@ -10,7 +10,7 @@ import orderRouter from './routes/orderRoute.js'
 const app = express()
 const port = process.env.PORT || 4000
 
-const allowedOrigins = ["http://localhost:5173","http://localhost:5174"]
+const allowedOrigins = ["http://localhost:5173","http://localhost:5174","https://food-delivery-frontend-p9by.onrender.com"]
 
 
 //Cors Setup
