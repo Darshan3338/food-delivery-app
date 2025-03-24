@@ -160,21 +160,25 @@ export const food_list = [
         price: 12,
         description: "Food provides essential nutrients for overall health and well-being",
         category: "Rolls"
-    }, {
-        _id: "7",
-        name: "Chicken Rolls",
-        image: food_7,
-        price: 20,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Rolls"
-    }, {
-        _id: "8",
-        name: "Veg Rolls",
-        image: food_8,
-        price: 15,
-        description: "Food provides essential nutrients for overall health and well-being",
-        category: "Rolls"
-    }, {
+    }, 
+    //add
+    // {
+    //     _id: "7",
+    //     name: "Chicken Rolls",
+    //     image: food_7,
+    //     price: 20,
+    //     description: "Food provides essential nutrients for overall health and well-being",
+    //     category: "Rolls"
+    // }, {
+    //     _id: "8",
+    //     name: "Veg Rolls",
+    //     image: food_8,
+    //     price: 15,
+    //     description: "Food provides essential nutrients for overall health and well-being",
+    //     category: "Rolls"
+    // }, 
+    //untill
+    {
         _id: "9",
         name: "Ripple Ice Cream",
         image: food_9,

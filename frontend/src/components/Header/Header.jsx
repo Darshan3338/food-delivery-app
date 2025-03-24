@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import headerimg from "/header_img.png";
+import Footer from "../Footer/Footer";
 
 const Header = () => {
   return (
@@ -16,6 +17,7 @@ const Header = () => {
         
         style={{minHeight:"20vh", left:"40%"}}
         >
+        
           <h2 className="fw-bold mb-4 display-3 fadeIn">Order your favourite food here</h2>
           <p className="text-light mb-2 fadeIn d-none d-md-block" style={{animationDelay:"0.5s"}}>
             Choose from a divers menu featuring a delectable array of dishes

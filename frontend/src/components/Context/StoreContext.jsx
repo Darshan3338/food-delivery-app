@@ -1,25 +1,32 @@
-import React, { createContext, useState } from "react";
-import { food_list } from "../../assets/frontend_assets/assets";
+import axios from "axios";
+import React, { createContext, useEffect, useState } from "react";
 
 export const StoreContext = createContext(null)
 
 const StoreContextProvider=(props)=>{
 
-const [cartItems,setcartItems] = useState({
+const [cartItems,setcartItems] = useState({})
+const url = "http://localhost:4000"
+const [token,settoken] = useState("")
+const [food_list,setfoodlist]= useState([])
 
-})
-
-const addToCart = (itemId) =>{
+const addToCart = async (itemId) =>{
     if(!cartItems[itemId]){
         setcartItems((prev)=>({...prev,[itemId]:1}))
     }
     else{
         setcartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
     }
+    if(token){
+        await axios.post(url+ "/api/cart/add",{itemId},{headers:{token}})
+    }
 }
 
-const removeFromCart = (itemId) =>{
+const removeFromCart = async (itemId) =>{
     setcartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
+    if(token){
+        await axios.post(url+ "/api/cart/remove",{itemId},{headers:{token}})
+    }
 }
 
 const getTotalCartAmount = ()=>{
@@ -34,6 +41,17 @@ const getTotalCartAmount = ()=>{
     return totalAmount
 }
 
+const fetchFoodList = async() =>{
+        const response = await axios.get(url+"/api/food/list")
+        setfoodlist(response.data.data)
+
+}
+
+const loadCartData = async (token) =>{
+    const response = await axios.post(url + "/api/cart/get",{},{headers:{token}})
+    setcartItems(response.data?.cartData || {})
+}
+
 const getTotalCartCount = () =>{
     let totalcount = 0;
     for(const item in cartItems){
@@ -41,6 +59,18 @@ const getTotalCartCount = () =>{
     }
     return totalcount
 }
+
+useEffect(()=>{
+  
+   async function loadData(){
+    await fetchFoodList()
+    if(localStorage.getItem("token")){
+        settoken(localStorage.getItem("token"))
+        await loadCartData(localStorage.getItem("token"))
+    }
+   } 
+   loadData()
+},[])
 
 
     const contextValue = {
@@ -51,6 +81,9 @@ const getTotalCartCount = () =>{
         removeFromCart,
         getTotalCartAmount,
         getTotalCartCount,
+        url,
+        token,
+        settoken,
     }
     return(
         <StoreContext.Provider value={contextValue}>

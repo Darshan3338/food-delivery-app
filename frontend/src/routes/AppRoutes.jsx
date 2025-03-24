@@ -9,6 +9,8 @@ import Footer from '../components/Footer/Footer';
 import Menu from '../components/Menu/Menu';
 import FoodItem from '../components/FoodDisplay/FoodItem/FoodItem';
 import LoginPop from '../pages/LoginPopup/LoginPop';
+import Verify from '../pages/Verify/Verify';
+import MyOrders from '../pages/MyOrders/MyOrders';
 
 const AppRoutes = () => {
   const [showLogin,setshowLogin] = useState(false)
@@ -25,6 +27,8 @@ const AppRoutes = () => {
             <Route path="/order" element={<PlaceOrder/>}/>
             <Route path="/contact-us" element={<Footer/>}/>
             <Route path="/menu/:id" element={<FoodItem/>}/>
+            <Route path="/verify" element={<Verify/>}/>
+            <Route path='myorders' element={<MyOrders/>}/>
 
         </Routes>
     </Router>
