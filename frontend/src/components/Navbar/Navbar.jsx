@@ -26,7 +26,7 @@ const logout = () =>{
       <Container fluid className="p-0">
         <Navbar.Brand as={Link} to="/" className="me-0">
           <img
-            src="./src/assets/frontend_assets/foodlogo.jpg"
+            src={assets.foodlogo}
             alt="food-logo"
             className="img-fluid rounded-circle me-3"
             style={{ height: "60px", width: "auto" }}
