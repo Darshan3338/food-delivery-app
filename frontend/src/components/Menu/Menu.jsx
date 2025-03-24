@@ -8,9 +8,9 @@ const Menu = ({ category, setcategory }) => {
     window.scrollTo(0,0)
   },[])
   return (
-    <div className="container text-start" id="explore-menu">
+    <div className="container text-center text-md-start" id="explore-menu">
       <h1 className="text-dark fw-medium">Explore our Menu</h1>
-      <p className="text-secondary w-75">
+      <p className="text-secondary w-100 w-md-75 mx-auto mx-md-0">
         Choose from a divers menu featuring a delectable array of dishes crafted
         with the finest ingradients and culinary experts. Our mission is to
         satisfy your cravings and elevate your dining experience, one delicious
