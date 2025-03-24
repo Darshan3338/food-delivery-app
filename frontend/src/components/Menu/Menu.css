@@ -2,3 +2,15 @@
 .overflow-x-scroll::-webkit-scrollbar{
     display: none;
 }
+@media (max-width: 768px) {
+    #explore-menu {
+      padding: 10px 0 !important; 
+      margin: 0 !important;
+    }
+  
+    #explore-menu img {
+      max-height: 250px; 
+      object-fit: cover;
+    }
+  }
+  
