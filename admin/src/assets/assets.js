@@ -16,4 +16,4 @@ export const assets ={
     hotfood
 }
 
-export const url = 'http://localhost:4000'
+export const url = 'https://food-delivery-backend-1qdf.onrender.com'
