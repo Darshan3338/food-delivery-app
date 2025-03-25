@@ -8,6 +8,15 @@ import { StoreContext } from "../Context/StoreContext";
 import { assets } from "../../assets/frontend_assets/assets";
 
 const NavigationBar = ({setshowLogin}) => {
+
+  const [isNavOpen,setisNavOpen] = useState(false)
+  const handleNavToggle = () =>{
+    setisNavOpen(!isNavOpen)
+  }
+  const closeNavbar = () =>{
+    setisNavOpen(false)
+  }
+  
   const {getTotalCartCount,token,settoken} = useContext(StoreContext)
   const navigate = useNavigate()
 const logout = () =>{
@@ -17,14 +26,16 @@ const logout = () =>{
 }
 
   return (
-    <Navbar
+     <Navbar
       style={{ backgroundColor: "red" }}
       variant="dark"
       expand="lg"
       className="d-flex align-items-center w-100"
     >
       <Container fluid className="p-0">
-        <Navbar.Brand as={Link} to="/" className="me-0">
+        <Navbar.Brand as={Link} to="/" className="me-0"
+        //chng
+        onClick={closeNavbar}>
           <img
             src={assets.foodlogo}
             alt="food-logo"
@@ -37,21 +48,32 @@ const logout = () =>{
         <Navbar.Toggle
           aria-controls="my-menu"
           className="ms-auto border-0 shadow-none fs-3"
+          //chg
+          onClick={handleNavToggle}
         />
-        <Navbar.Collapse id="my-menu" className="w-100">
+        <Navbar.Collapse id="my-menu" className="w-100" 
+        //chng
+        in={isNavOpen}>
           <Nav className="mx-auto d-flex flex-lg-row align-items-center gap-3">
-            <Nav.Link as={Link} to="/" className="nav-link">
+            <Nav.Link as={Link} to="/" className="nav-link"
+            //chng
+            onClick={closeNavbar}
+            >
               Home
             </Nav.Link>
             <Nav.Link as="a"
               href="#explore-menu"
               className="nav-link"
+               //chng
+            onClick={closeNavbar}
             >
               Menu
             </Nav.Link>
             <Nav.Link as="a"
               href="#footer"
               className="nav-link"
+               //chng
+            onClick={closeNavbar}
             >
               Contact Us
             </Nav.Link>
@@ -69,16 +91,22 @@ const logout = () =>{
         {/* <Nav.Link as={Link} to={"/search"} className="nav-link">
           <FaSearch size={20} />
         </Nav.Link> */}
-        {!token ? <Nav.Link className="register-btn" onClick={()=>setshowLogin(true)}>
+        {!token ? 
+        <Nav.Link className="register-btn" onClick={()=>
+          //chnge
+        {setshowLogin(true); closeNavbar()}}>
           Sign In
         </Nav.Link>
       :
       <div className="navbar-profile">
         <img src={assets.profile_icon} alt="profile" />
         <ul className="nav-profile-dropdown">
-          <li onClick={()=>navigate("/myorders")}> <img src={assets.bag_icon} alt="" /><p>Orders</p></li>
+          <li onClick={()=>
+            //chnage
+            {navigate("/myorders"); closeNavbar()}}> <img src={assets.bag_icon} alt="" /><p>Orders</p></li>
           <hr />
-          <li onClick={logout}> <img src={assets.logout_icon} alt="logout" /><p>Logout</p></li>
+          <li onClick={()=>{logout(); closeNavbar()}}> 
+            <img src={assets.logout_icon} alt="logout" /><p>Logout</p></li>
         </ul>
       </div>  
       }
@@ -88,6 +116,7 @@ const logout = () =>{
           as={Link}
           to="/cart"
           className="nav-link d-flex align-items-center"
+          onClick={closeNavbar}
         >
           <div className="cart-icon-container position-relative">
             <FaShoppingCart size={22} />
