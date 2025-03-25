@@ -46,6 +46,9 @@ const placeOrder = async(e) =>{
   console.log("Api Respone",response.data)
   if(response.data.success){
     const {session_url} = response.data;
+     alert(
+      "Use this dummy card number for testing: 4000 0035 6000 0008 (Expiry: 12/34, CVC: 123)"
+    );
     window.location.replace(session_url)
   }
   else{
@@ -61,7 +64,7 @@ catch(error){
   const navigate = useNavigate()
   
   if (orderItems.length === 0) {
-    alert("Your cart is empty. Add items before placing an order.");
+    alert("Your cart is empty. Add items before placing an order");
     return;
   }
 
