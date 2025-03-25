@@ -53,8 +53,9 @@ try {
 
     res.json({success:true,session_url:session.url})
 } catch (error) {
-        console.log(error)
-        res.json({success:false,message:"Error"})
+        console.error("Error placing order:", error)
+        res.status(500).json({success:false,message:"Error"})
+        // res.json({success:false,message:"Error"})
 }
 }
 
@@ -65,18 +66,20 @@ const verfyOrder = async (req,res)=>{
         if(!order){
             return res.status(404).json({success:false,message:"Order not found"})
         }
-        if(success==="true"){
+        if(success==="true" || success === true){
             order.payment = true;
             await order.save()
-            res.json({success:"true",message:"Paid"})
+          return res.json({success:"true",message:"Payment Successful"})
         }
         else{
             await orderModel.findByIdAndDelete(orderId)
-            res.json({success:"false",message:"Not Paid"})
+            return res.json({success:"false",message:"Payment Failed, Order Cancelled"})
+      
         }
     } catch (error) {
-        console.log(error)
-        res.json({success:false,message:"Error"})
+        console.error("Error verifying order:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+   
     }
 }
 
@@ -86,7 +89,8 @@ const userOrders = async (req,res) =>{
         const orders = await orderModel.find({ userId: req.body.userId }).sort({ createdAt: -1 }); // Sorting by newest orders first
         res.json({success:true,data:orders})
     } catch (error) {
-        res.json({success:false,message:"Error"})
+         console.error("Error fetching user orders:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
 
@@ -96,8 +100,8 @@ const listOrders = async (req,res)=>{
         const orders = await orderModel.find({}).sort({createdAt:-1})
         res.json({success:true,data:orders})
     } catch (error) {
-        console.log(error)
-        res.json({success:false,message:"Error"})
+          console.error("Error listing orders:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
 
@@ -114,7 +118,9 @@ const updateStatus = async (req,res) =>{
         }
         res.json({success:true,message:"Status Updated"})
     } catch (error) {
-        res.json({success:false,message:"Error"})
+           console.error("Error updating order status:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+   
     }
 
 }
