@@ -27,13 +27,15 @@ const onChangeHandler = (e) =>{
 const placeOrder = async(e) =>{
   e.preventDefault()
   let orderItems = [];
-  food_list.map((item)=>{
+   food_list?.forEach((item)=>{
     if(cartItems[item._id]>0){
-      let itemInfo = item;
-      itemInfo["quantity"] = cartItems[item._id]
-      orderItems.push(itemInfo)
+      orderItems.push({...item,quantity:cartItems[item._id]})
     }
   })
+  if (orderItems.length === 0) {
+    alert("Your cart is empty. Add items before placing an order.");
+    return;
+  }
   let orderData = {
     address:data,
     items:orderItems,
@@ -58,14 +60,10 @@ catch(error){
 
   const navigate = useNavigate()
   
-  useEffect(()=>{
-    if(!token){
-        navigate("/cart")
-    }
-    else if(getTotalCartAmount()===0){
-        navigate("/cart")
-    }
-  },[token])
+  if (orderItems.length === 0) {
+    alert("Your cart is empty. Add items before placing an order.");
+    return;
+  }
 
 
   return (
