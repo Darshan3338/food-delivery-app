@@ -63,10 +63,18 @@ catch(error){
 
   const navigate = useNavigate()
   
-  if (orderItems.length === 0) {
-    alert("Your cart is empty. Add items before placing an order");
-    return;
-  }
+ 
+  useEffect(()=>{
+    if(!token){
+      alert("No token found, pleas log in first")
+        navigate("/cart")
+    }
+     else if(Object.keys(cartItems).length === 0 || getTotalCartAmount()===0){     
+      alert("Your cart is empty. Add items before placing an order.");
+      navigate("/cart")
+    }
+  },[token,cartItems])
+
 
 
   return (
