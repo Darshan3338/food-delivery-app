@@ -57,7 +57,7 @@ const placeOrder = async(e) =>{
 }
 catch(error){
   console.log("Order Placement Error",error)
-  alert("An error occured while placing")
+  alert("Please make an order above ₹50")
 }
   }
 
