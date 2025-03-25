@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const PlaceOrder = () => {
+   const [errors,setErrors] = useState({})
   const {getTotalCartAmount,token,food_list,cartItems,url} = useContext(StoreContext)
 const [data,setdata] = useState({
   firstName:"",
@@ -19,13 +20,27 @@ const [data,setdata] = useState({
 })
 
 const onChangeHandler = (e) =>{
-  const name = e.target.name;
-  const value = e.target.value;
+ const {name,value} = e.target;
+
+  let newErrors = {...errors}
+  if(name === "email"){
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    newErrors.email = emailRegex.test(value) ? "" : "Invalid email address";
+  }
+  if(name === "phone"){
+    const phoneRegex = /^[6-9]\d{9}$/; 
+    newErrors.phone = phoneRegex.test(value) ? "" : "Invalid phone number";
+  }
+  setErrors(newErrors);
   setdata(data=>({...data,[name] : value }))
 }
 
 const placeOrder = async(e) =>{
   e.preventDefault()
+   if(errors.email || errors.phone){
+    alert("Please fix the errors before submitting!");
+    return;
+  }
   let orderItems = [];
    food_list?.forEach((item)=>{
     if(cartItems[item._id]>0){
@@ -86,6 +101,7 @@ catch(error){
           <input required name='lastName' onChange={onChangeHandler} value={data.lastName}  type="text" placeholder='Last Name'/>
         </div>
         <input required  name='email' onChange={onChangeHandler} value={data.email}  type="text" placeholder='Email Address'/>
+        {errors.email && <p style={{ color: "red", fontSize: "12px" }}>{errors.email}</p>}        
         <input required name='street' onChange={onChangeHandler} value={data.street}  type="text" placeholder='Street'/>
         <div className="multi-fields">
           <input required name='city' onChange={onChangeHandler} value={data.city}  type="text" placeholder='City'/>
@@ -96,7 +112,8 @@ catch(error){
           <input required  name='country' onChange={onChangeHandler} value={data.country} type="text" placeholder='Country'/>
         </div>
         <input required name='phone' onChange={onChangeHandler} value={data.phone}  type="text" placeholder='Phone'/>
-
+ {errors.phone && <p style={{ color: "red", fontSize: "12px" }}>{errors.phone}</p>}
+        
       </div>
 
 
